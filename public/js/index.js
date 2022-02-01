@@ -28,7 +28,10 @@ const loader = Loader();
 
 // App
 const app = App(loader);
-app.load(() => modal.addClickListeners());
+app.load(() => {
+    modal.addClickListeners();
+    document.querySelector('.loading-screen').remove();
+});
 
 window.addEventListener('popstate', async (e) => {
 

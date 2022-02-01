@@ -76,7 +76,20 @@ body {
     max-width: 1280px;
 }
 
-/* LOADER */
+/* LOADING */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    z-index: 1000;
+}
+
 .loader {
     position: fixed;
     top: 0;

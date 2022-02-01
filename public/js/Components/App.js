@@ -8,6 +8,25 @@ const langColors = await (
     await fetch('public/js/data/lang-colors.json')
 ).json();
 
+function preloadImages(taskQueue, onComplete) {
+
+    const images = taskQueue.filter(task =>
+        task.ele?.localName === 'img' && task.attr === 'src'
+    );
+    let imagesPreloaded = 0;
+    images.forEach((img) => preloadImg(img.val, onImgLoad));
+
+    function onImgLoad() {
+
+        imagesPreloaded++;
+        if (imagesPreloaded === images.length) {
+
+            taskQueue.forEach((task) => task.exec());
+            onComplete();
+        }
+    }
+}
+
 function App(loader) {
 
     let currUsername, currTab;
@@ -190,24 +209,12 @@ function App(loader) {
             [currUsername, currTab] = [username, tab];
             await fillUserData();
 
-            const images = taskQueue.filter(task =>
-                task.ele?.localName === 'img' && task.attr === 'src'
-            );
-            let imagesPreloaded = 0;
-            images.forEach((img) => preloadImg(img.val, onImgLoad));
-
-            function onImgLoad() {
-
-                imagesPreloaded++;
-                if (imagesPreloaded === images.length) {
-
-                    taskQueue.forEach((task) => task.exec());
-                    taskQueue = [];
-                    isQueueing = false;
-                    loader.complete();
-                    onComplete();
-                }
-            }
+            preloadImages(taskQueue, () => {
+                taskQueue = [];
+                isQueueing = false;
+                loader.complete();
+                onComplete();
+            });
         } else if (tab !== currTab) {
 
             loader.start(15);
@@ -220,9 +227,15 @@ function App(loader) {
 
     async function load(next) {
 
+        isQueueing = true;
         [currUsername, currTab] = getURLState();
         await fillUserData();
-        next();
+
+        preloadImages(taskQueue, () => {
+            taskQueue = [];
+            isQueueing = false;
+            next();
+        });
     }
 
     return ({
