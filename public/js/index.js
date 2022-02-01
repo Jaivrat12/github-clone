@@ -3,6 +3,21 @@ import SearchForm from './Components/SearchForm.js';
 import Modal from './Components/Modal.js';
 import Loader from './Components/Loader.js';
 
+// if deployed on github pages, update all URLs linking to this page
+if (/.github.io\//.test(location.href)) {
+
+    document.querySelectorAll('a[href*="/#/"]').forEach((ele) => {
+
+        const href = ele.getAttribute('href');
+        ele.setAttribute('href', '/github-clone' + href);
+    });
+    document.querySelectorAll('a[data-vals*="/#/"]').forEach((ele) => {
+
+        const vals = ele.getAttribute('data-vals')
+                        .replace(/\/#\//, '/github-clone/#/');
+        ele.setAttribute('data-vals', vals);
+    });
+}
 
 // Modal
 const modal = Modal();
