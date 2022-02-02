@@ -86,7 +86,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #000;
+    background: var(--body-bg-color);;
     z-index: 1000;
 }
 
