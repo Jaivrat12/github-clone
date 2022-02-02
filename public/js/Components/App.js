@@ -4,9 +4,14 @@ import {
 } from '../lib/fetch.js';
 import { fillData, preloadImg } from '../lib/util.js';
 
+document.querySelector('.test').innerHTML += '[App.js] Script working! :D<br>';
+
 const langColors = await (
     await fetch('public/js/data/lang-colors.json')
 ).json();
+
+document.querySelector('.test')
+        .innerHTML += "langColors['JavaScript']: " + langColors['JavaScript'] + '<br>';
 
 function preloadImages(taskQueue, onComplete) {
 
