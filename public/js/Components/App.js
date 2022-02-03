@@ -6,12 +6,12 @@ import { fillData, preloadImg } from '../lib/util.js';
 
 document.querySelector('.test').innerHTML += '[App.js] Script working! :D<br>';
 
-const langColors = await (
-    await fetch('public/js/data/lang-colors.json')
-).json();
+async function getLangColors() {
 
-document.querySelector('.test')
-        .innerHTML += "langColors['JavaScript']: " + langColors['JavaScript'] + '<br>';
+    return await (
+        await fetch('public/js/data/lang-colors.json')
+    ).json();
+}
 
 function preloadImages(taskQueue, onComplete) {
 
@@ -39,6 +39,7 @@ function App(loader) {
     const data = {
         user: null,
         repos: null,
+        langColors: null,
     };
 
     // const tabs = ['overview', 'repositories', 'stars'];
@@ -121,7 +122,7 @@ function App(loader) {
 
                 repo.full_name = repo.full_name.split('/').join(' / ');
                 repo.language = repo.language ?? '¯\\_(ツ)_/¯';
-                repo.lang_color = langColors[repo.language] ?? '#333';
+                repo.lang_color = data.langColors[repo.language] ?? '#333';
                 repo.username = repo.owner.login;
 
                 const months = [
@@ -232,6 +233,7 @@ function App(loader) {
 
     async function load(next) {
 
+        data.langColors = await getLangColors();
         isQueueing = true;
         [currUsername, currTab] = getURLState();
         await fillUserData();
