@@ -1,11 +1,6 @@
 import { Octokit } from 'https://cdn.skypack.dev/@octokit/core';
 
-document.querySelector('.test')
-        .innerHTML += '[fetch.js] about to make an octokit instance<br>';
 const octokit = new Octokit();
-
-document.querySelector('.test')
-        .innerHTML += '[fetch.js] ...done<br>';
 
 async function getData(url, options) {
 

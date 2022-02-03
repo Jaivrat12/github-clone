@@ -19,8 +19,6 @@ if (/.github.io\//.test(location.href)) {
     });
 }
 
-document.querySelector('.test').innerHTML += '[index.js] Script working! :D<br>';
-
 // Modal
 const modal = Modal();
 modal.init();

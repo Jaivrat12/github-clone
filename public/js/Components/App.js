@@ -4,8 +4,6 @@ import {
 } from '../lib/fetch.js';
 import { fillData, preloadImg } from '../lib/util.js';
 
-document.querySelector('.test').innerHTML += '[App.js] Script working! :D<br>';
-
 async function getLangColors() {
 
     return await (
