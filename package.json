@@ -1,0 +1,11 @@
+{
+  "name": "github-clone",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "browser-sync -s -f **/* --ignore .git/**/*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
