@@ -125,7 +125,7 @@ body {
     width: 2.75rem;
 }
 
-.spinner-track, .spinner {
+.spinner-track, .my-spinner {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -135,7 +135,7 @@ body {
     border-radius: 50%;
 }
 
-.spinner {
+.my-spinner {
     border-color: transparent;
     border-top-color: var(--subtle-color);
     /* border-top-color: #61676e; */
